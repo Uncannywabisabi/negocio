@@ -150,6 +150,54 @@ body {
   color: var(--accent);
 }
 
+.sorteo-info-box {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--glass-border);
+  padding: 1rem 1.5rem;
+  border-radius: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 1rem auto 2rem;
+  text-align: left;
+  backdrop-filter: blur(5px);
+}
+
+.loteria-logo {
+  width: 60px;
+  height: auto;
+  object-fit: contain;
+}
+
+.sorteo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.sorteo-text span {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.sorteo-text strong {
+  font-size: 1.2rem;
+  color: var(--secondary);
+  line-height: 1.2;
+  margin: 0.2rem 0;
+}
+
+.sorteo-fecha {
+  display: inline-block;
+  background: var(--primary);
+  color: white !important;
+  padding: 0.2rem 0.6rem;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 0.85rem !important;
+  margin-top: 0.5rem;
+  width: fit-content;
+}
+
 .btn-hero {
   display: inline-block;
   background: linear-gradient(45deg, var(--primary), #FF5E00);
@@ -701,8 +749,7 @@ body {
 
 /* ================= SECTION ANIMATIONS ================= */
 .section {
-  opacity: 0;
-  transform: translateY(30px);
+  /* Se eliminó la opacidad 0 para que cargue inmediatamente sin depender de JS */
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
