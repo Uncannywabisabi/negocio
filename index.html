@@ -1,139 +1,303 @@
 <!DOCTYPE html>
-<html lang="es" class="bg-background">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gran Sorteo de Perfumes</title>
+    <title>Gran Sorteo de Perfumes Árabes</title>
     <meta
       name="description"
-      content="Participa en el gran sorteo de perfumes. Elige tu número de la suerte."
+      content="Participa en el gran sorteo de perfumes árabes premium. Elige tu número de la suerte y gana 4 fragancias exclusivas."
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="assets/favicon.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css?v=2" />
   </head>
   <body>
+    <!-- PARTICLES -->
+    <div class="particles" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
     <!-- HEADER -->
-    <header class="site-header">
+    <header class="site-header" id="siteHeader">
       <div class="header-inner">
-        <div class="brand">
-          <span class="dot"></span>
+        <a href="#" class="brand">
+          <i class="fas fa-spray-can-sparkles brand-icon"></i>
           <span id="brandName">Sorteo de Perfumes</span>
-        </div>
+        </a>
         <nav class="nav-links">
-          <a href="#premios">Premios</a>
-          <a href="#numeros">Números</a>
-          <a href="admin.html" class="btn-admin">Admin</a>
+          <a href="#premios"><i class="fas fa-gift"></i> Premios</a>
+          <a href="#como-funciona"><i class="fas fa-info-circle"></i> Cómo participar</a>
+          <a href="#numeros"><i class="fas fa-th"></i> Números</a>
+          <a href="admin.html" class="btn-admin"
+            ><i class="fas fa-lock"></i> Admin</a
+          >
         </nav>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menú">
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
     </header>
 
     <!-- HERO -->
     <section class="hero">
-      <div class="container">
+      <div class="hero-bg"></div>
+      <div class="container hero-content">
+        <div class="hero-badge">
+          <i class="fas fa-star"></i> Sorteo Activo
+        </div>
         <h1 id="heroTitle">
-          Gran Sorteo de <span class="accent">Perfumes</span>
+          Gran Sorteo de<br />
+          <span class="accent">Perfumes Árabes</span>
         </h1>
         <p id="heroDesc">
-          Participa eligiendo tu número. El ganador se decide con el primer
+          Participa eligiendo tu número de la suerte. El ganador se lleva
+          <strong>4 perfumes árabes premium</strong> y se decide con el primer
           número de la Lotería Nacional Dominicana.
         </p>
-        <div class="hero-meta">
-          <div class="meta-pill">
-            Premios: <strong>4 Perfumes</strong>
+        <div class="hero-stats">
+          <div class="hero-pill">
+            <i class="fas fa-tag"></i>
+            <div>
+              <span class="pill-label">Precio</span>
+              <strong id="precioPill">RD$ 100</strong>
+            </div>
           </div>
-          <div class="meta-pill">
-            Precio por número: <strong id="precioPill">RD$ 500</strong>
+          <div class="hero-pill">
+            <i class="fas fa-check-circle"></i>
+            <div>
+              <span class="pill-label">Disponibles</span>
+              <strong id="disponiblesPill">--</strong>
+            </div>
           </div>
-          <div class="meta-pill">
-            Disponibles: <strong id="disponiblesPill">--</strong>
+          <div class="hero-pill">
+            <i class="fas fa-trophy"></i>
+            <div>
+              <span class="pill-label">Premios</span>
+              <strong>4 Perfumes</strong>
+            </div>
           </div>
         </div>
+        <a href="#numeros" class="btn btn-hero">
+          <i class="fas fa-hand-pointer"></i> Elegir mi número
+        </a>
       </div>
     </section>
 
     <!-- PREMIOS -->
-    <section id="premios" class="container">
-      <h2 class="section-title">Los 4 Perfumes en Juego</h2>
-      <p class="section-sub">El ganador se lleva los cuatro perfumes.</p>
+    <section id="premios" class="section container">
+      <div class="section-header">
+        <span class="section-badge"><i class="fas fa-crown"></i> Premios</span>
+        <h2 class="section-title">Los 4 Perfumes en Juego</h2>
+        <p class="section-sub">
+          El ganador se lleva los cuatro perfumes árabes premium.
+        </p>
+      </div>
       <div class="premios-grid">
         <article class="premio-card">
-          <img src="assets/perfumes/perfume-1.png" alt="Perfume árabe morado" />
+          <div class="premio-img-wrap">
+            <img
+              src="assets/perfumes/perfume-1.png"
+              alt="Perfume árabe morado"
+            />
+            <div class="premio-badge"><i class="fas fa-gem"></i> Premium</div>
+          </div>
           <div class="info">
             <h3>Edición Morada</h3>
-            <span>Fragancia árabe premium</span>
+            <span><i class="fas fa-star"></i> Fragancia árabe premium</span>
           </div>
         </article>
         <article class="premio-card">
-          <img src="assets/perfumes/perfume-2.png" alt="Perfume árabe rojo" />
+          <div class="premio-img-wrap">
+            <img src="assets/perfumes/perfume-2.png" alt="Perfume árabe rojo" />
+            <div class="premio-badge"><i class="fas fa-gem"></i> Premium</div>
+          </div>
           <div class="info">
             <h3>Edición Roja</h3>
-            <span>Fragancia árabe premium</span>
+            <span><i class="fas fa-star"></i> Fragancia árabe premium</span>
           </div>
         </article>
         <article class="premio-card">
-          <img src="assets/perfumes/perfume-3.png" alt="Perfume árabe blanco" />
+          <div class="premio-img-wrap">
+            <img
+              src="assets/perfumes/perfume-3.png"
+              alt="Perfume árabe blanco"
+            />
+            <div class="premio-badge"><i class="fas fa-gem"></i> Premium</div>
+          </div>
           <div class="info">
             <h3>Edición Blanca</h3>
-            <span>Fragancia árabe premium</span>
+            <span><i class="fas fa-star"></i> Fragancia árabe premium</span>
           </div>
         </article>
         <article class="premio-card">
-          <img src="assets/perfumes/perfume-4.png" alt="Perfume árabe negro" />
+          <div class="premio-img-wrap">
+            <img
+              src="assets/perfumes/perfume-4.png"
+              alt="Perfume árabe negro"
+            />
+            <div class="premio-badge"><i class="fas fa-gem"></i> Premium</div>
+          </div>
           <div class="info">
             <h3>Edición Negra</h3>
-            <span>Fragancia árabe premium</span>
+            <span><i class="fas fa-star"></i> Fragancia árabe premium</span>
           </div>
         </article>
       </div>
     </section>
 
+    <!-- CÓMO FUNCIONA -->
+    <section id="como-funciona" class="section container">
+      <div class="section-header">
+        <span class="section-badge"
+          ><i class="fas fa-question-circle"></i> Pasos</span
+        >
+        <h2 class="section-title">¿Cómo Participar?</h2>
+        <p class="section-sub">Es muy fácil, solo sigue estos pasos.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-icon"><i class="fas fa-hand-pointer"></i></div>
+          <h3>Elige tu número</h3>
+          <p>Selecciona un número disponible de la cuadrícula.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-icon"><i class="fas fa-user-edit"></i></div>
+          <h3>Completa tus datos</h3>
+          <p>Ingresa tu nombre y teléfono para la solicitud.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-icon"><i class="fas fa-clock"></i></div>
+          <h3>Espera aprobación</h3>
+          <p>El administrador revisará y aprobará tu solicitud.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <div class="step-icon"><i class="fas fa-money-bill-wave"></i></div>
+          <h3>Realiza el pago</h3>
+          <p>Una vez aprobado, realiza el pago de RD$ 100.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- NÚMEROS -->
-    <section id="numeros" class="container">
-      <h2 class="section-title">Elige tu Número</h2>
-      <p class="section-sub">Toca un número disponible para reservarlo.</p>
+    <section id="numeros" class="section container">
+      <div class="section-header">
+        <span class="section-badge"
+          ><i class="fas fa-th"></i> Selección</span
+        >
+        <h2 class="section-title">Elige tu Número de la Suerte</h2>
+        <p class="section-sub">
+          Toca un número <strong>disponible</strong> para enviar tu solicitud.
+        </p>
+      </div>
 
       <div class="leyenda">
-        <span><i class="swatch libre"></i> Disponible</span>
-        <span><i class="swatch ocupado"></i> Ocupado</span>
+        <span
+          ><i class="swatch libre"></i> <i class="fas fa-circle-check"></i>
+          Disponible</span
+        >
+        <span
+          ><i class="swatch pendiente-sw"></i> <i class="fas fa-clock"></i> En
+          revisión</span
+        >
+        <span
+          ><i class="swatch ocupado-sw"></i> <i class="fas fa-lock"></i>
+          Ocupado</span
+        >
       </div>
 
       <div id="numerosGrid" class="numeros-grid">
-        <div class="loading">Cargando números...</div>
+        <div class="loading">
+          <i class="fas fa-spinner fa-spin"></i> Cargando números...
+        </div>
       </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="site-footer">
-      <p>
-        &copy; <span id="year"></span> Sorteo de Perfumes. El sorteo se realiza
-        con el primer número de la Lotería Nacional Dominicana.
-      </p>
+      <div class="container">
+        <div class="footer-brand">
+          <i class="fas fa-spray-can-sparkles"></i> Sorteo de Perfumes
+        </div>
+        <p>
+          &copy; <span id="year"></span> Gran Sorteo de Perfumes Árabes. El
+          sorteo se realiza con el primer número de la Lotería Nacional
+          Dominicana.
+        </p>
+        <div class="footer-links">
+          <a href="#premios">Premios</a>
+          <a href="#numeros">Números</a>
+          <a href="admin.html">Admin</a>
+        </div>
+      </div>
     </footer>
 
     <!-- MODAL DE RESERVA -->
     <div class="modal-overlay" id="modalOverlay">
       <div class="modal">
-        <h3>Reservar número <span class="num-badge" id="modalNum">#0</span></h3>
-        <p>Completa tus datos para apartar este número.</p>
+        <button class="modal-close" id="modalCloseBtn">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-header">
+          <div class="modal-icon"><i class="fas fa-ticket-alt"></i></div>
+          <h3>
+            Solicitar número
+            <span class="num-badge" id="modalNum">#0</span>
+          </h3>
+          <p>
+            Completa tus datos. Tu solicitud será revisada por el
+            administrador antes de ser confirmada.
+          </p>
+        </div>
         <div class="field">
-          <label for="inpNombre">Nombre completo</label>
+          <label for="inpNombre"
+            ><i class="fas fa-user"></i> Nombre completo</label
+          >
           <input type="text" id="inpNombre" placeholder="Ej: Juan Pérez" />
         </div>
         <div class="field">
-          <label for="inpTelefono">Teléfono</label>
-          <input type="tel" id="inpTelefono" placeholder="Ej: 809-000-0000" />
+          <label for="inpTelefono"
+            ><i class="fas fa-phone"></i> Teléfono</label
+          >
+          <input
+            type="tel"
+            id="inpTelefono"
+            placeholder="Ej: 809-000-0000"
+          />
         </div>
         <div class="modal-actions">
-          <button class="btn btn-ghost" id="btnCancelar">Cancelar</button>
+          <button class="btn btn-ghost" id="btnCancelar">
+            <i class="fas fa-times"></i> Cancelar
+          </button>
           <button class="btn btn-primary" id="btnConfirmar">
-            Reservar número
+            <i class="fas fa-paper-plane"></i> Enviar solicitud
           </button>
         </div>
       </div>
     </div>
 
     <!-- TOAST -->
-    <div class="toast" id="toast"></div>
+    <div class="toast" id="toast">
+      <i class="toast-icon fas fa-check-circle"></i>
+      <span class="toast-msg"></span>
+    </div>
 
-    <script type="module" src="app.js"></script>
+    <script type="module" src="app.js?v=2"></script>
   </body>
 </html>
