@@ -1,7 +1,7 @@
 // ============================================================
 //  LÓGICA DEL PANEL DE ADMINISTRACIÓN
 // ============================================================
-import { db, RIFA_CONFIG } from "./firebase-config.js";
+import { db, RIFA_CONFIG } from "./firebase-config_v3.js";
 import {
   collection, doc, getDoc, setDoc, updateDoc, deleteDoc, onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";

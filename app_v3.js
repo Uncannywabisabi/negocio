@@ -2,7 +2,7 @@
 //  LÓGICA DE LA PÁGINA PRINCIPAL
 //  — Sistema de aprobación: las reservas van a estado "pendiente"
 // ============================================================
-import { db, RIFA_CONFIG } from "./firebase-config.js";
+import { db, RIFA_CONFIG } from "./firebase-config_v3.js";
 import {
   collection,
   doc,
@@ -89,8 +89,8 @@ function renderGrid() {
 
   for (let i = 1; i <= RIFA_CONFIG.totalNumeros; i++) {
     const key = String(i);
-    const cell = document.createElement("div");
-    cell.className = "numero";
+    const cell = document.createElement("button"); // Changed to button for accessibility
+    cell.className = "num-btn";
 
     const data = numerosData[key];
 
@@ -102,7 +102,7 @@ function renderGrid() {
         cell.innerHTML = `<span class="num-text">${String(i).padStart(
           2,
           "0"
-        )}</span><i class="fas fa-clock num-state-icon"></i>`;
+        )}</span><i class="fas fa-clock num-state-icon" style="font-size:0.5em;margin-left:5px"></i>`;
       } else {
         // Aprobado / ocupado
         cell.classList.add("ocupado");
@@ -110,7 +110,7 @@ function renderGrid() {
         cell.innerHTML = `<span class="num-text">${String(i).padStart(
           2,
           "0"
-        )}</span><i class="fas fa-lock num-state-icon"></i>`;
+        )}</span><i class="fas fa-lock num-state-icon" style="font-size:0.5em;margin-left:5px"></i>`;
       }
     } else {
       disponibles++;
@@ -137,13 +137,13 @@ function abrirModal(num) {
   modalNum.textContent = "#" + String(num).padStart(2, "0");
   inpNombre.value = "";
   inpTelefono.value = "";
-  overlay.classList.add("open");
+  overlay.classList.add("active");
   document.body.style.overflow = "hidden";
   setTimeout(() => inpNombre.focus(), 200);
 }
 
 function cerrarModal() {
-  overlay.classList.remove("open");
+  overlay.classList.remove("active");
   document.body.style.overflow = "";
   numeroSeleccionado = null;
 }
@@ -155,7 +155,7 @@ overlay.addEventListener("click", (e) => {
 });
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && overlay.classList.contains("open")) cerrarModal();
+  if (e.key === "Escape" && overlay.classList.contains("active")) cerrarModal();
 });
 
 // ============================================================
@@ -247,36 +247,6 @@ function escucharNumeros() {
     }
   );
 }
-
-// ============================================================
-//  HEADER scroll effect
-// ============================================================
-const header = document.getElementById("siteHeader");
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 50) {
-    header.classList.add("scrolled");
-  } else {
-    header.classList.remove("scrolled");
-  }
-});
-
-// ============================================================
-//  Intersection Observer for section animations
-// ============================================================
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      }
-    });
-  },
-  { threshold: 0.1 }
-);
-
-document.querySelectorAll(".section").forEach((sec) => {
-  observer.observe(sec);
-});
 
 // ============================================================
 //  INIT
