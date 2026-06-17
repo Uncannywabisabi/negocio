@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel · Rifa Perfumes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-card">
+      <div class="login-logo">✦</div>
+      <h1>Admin Panel</h1>
+      <p>Rifa de Perfumes Initio</p>
+      <div class="form-group">
+        <label>Correo</label>
+        <input type="email" id="loginEmail" placeholder="admin@correo.com" />
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" />
+      </div>
+      <div id="loginError" class="login-error" style="display:none"></div>
+      <button class="btn-primary" id="loginBtn">Entrar</button>
+    </div>
+  </div>
+
+  <!-- MAIN ADMIN APP (hidden until login) -->
+  <div id="adminApp" style="display:none">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-logo">✦</span>
+        <span class="topbar-title">Admin · Rifa Perfumes</span>
+      </div>
+      <div class="topbar-right">
+        <span class="topbar-user" id="topbarUser">—</span>
+        <button class="btn-ghost" id="logoutBtn">Salir</button>
+      </div>
+    </header>
+
+    <div class="admin-layout">
+
+      <!-- SIDEBAR -->
+      <nav class="sidebar">
+        <button class="nav-item active" data-panel="dashboard">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </button>
+        <button class="nav-item" data-panel="numbers">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Números
+        </button>
+        <button class="nav-item" data-panel="payments">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Pagos
+        </button>
+        <button class="nav-item" data-panel="winner">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Ganador
+        </button>
+      </nav>
+
+      <!-- CONTENT -->
+      <main class="admin-main">
+
+        <!-- DASHBOARD PANEL -->
+        <section id="panel-dashboard" class="panel active">
+          <h2 class="panel-title">Dashboard</h2>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-icon">🎯</span>
+              <div>
+                <div class="stat-val" id="stat-total">0</div>
+                <div class="stat-label">Números Ocupados</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon">✅</span>
+              <div>
+                <div class="stat-val" id="stat-paid">0</div>
+                <div class="stat-label">Pagos Confirmados</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon">⏳</span>
+              <div>
+                <div class="stat-val" id="stat-pending">0</div>
+                <div class="stat-label">Pendientes de Pago</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <span class="stat-icon">🔢</span>
+              <div>
+                <div class="stat-val" id="stat-avail">100</div>
+                <div class="stat-label">Disponibles</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-grid-bottom">
+            <div class="card">
+              <h3 class="card-title">Actividad Reciente</h3>
+              <ul id="recentList" class="recent-list">
+                <li class="recent-empty">Sin actividad aún</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 class="card-title">Info del Sorteo</h3>
+              <div class="info-block">
+                <div class="info-row"><span>Total de números</span><strong>100 (00–99)</strong></div>
+                <div class="info-row"><span>Premio</span><strong>4 Perfumes Initio</strong></div>
+                <div class="info-row"><span>Método sorteo</span><strong>Banca Nacional Dominicana</strong></div>
+                <div class="info-row"><span>Precio por número</span><strong id="info-price">—</strong></div>
+              </div>
+              <div class="form-group" style="margin-top:1rem">
+                <label>Precio por número (RD$)</label>
+                <input type="number" id="priceInput" placeholder="ej. 500" min="1" />
+              </div>
+              <button class="btn-primary" id="savePriceBtn" style="width:100%;margin-top:0.5rem">Guardar Precio</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- NUMBERS PANEL -->
+        <section id="panel-numbers" class="panel">
+          <h2 class="panel-title">Gestión de Números</h2>
+
+          <div class="card" style="margin-bottom:1.5rem">
+            <h3 class="card-title">Asignar / Liberar Número</h3>
+            <div class="assign-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Número (00–99)</label>
+                  <input type="number" id="assignNum" placeholder="ej. 07" min="0" max="99" />
+                </div>
+                <div class="form-group">
+                  <label>Nombre del cliente</label>
+                  <input type="text" id="assignName" placeholder="Nombre completo" />
+                </div>
+                <div class="form-group">
+                  <label>Teléfono</label>
+                  <input type="tel" id="assignPhone" placeholder="809-000-0000" />
+                </div>
+              </div>
+              <div class="btn-row">
+                <button class="btn-primary" id="assignBtn">Marcar como Ocupado</button>
+                <button class="btn-danger" id="releaseBtn">Liberar Número</button>
+              </div>
+              <div id="assignMsg" class="msg-box" style="display:none"></div>
+            </div>
+          </div>
+
+          <!-- Numbers Grid -->
+          <div class="card">
+            <h3 class="card-title">Vista de Todos los Números</h3>
+            <div class="admin-legend">
+              <span><span class="dot dot-available"></span> Disponible</span>
+              <span><span class="dot dot-taken"></span> Ocupado · sin pago</span>
+              <span><span class="dot dot-paid"></span> Ocupado · pagado</span>
+            </div>
+            <div class="admin-numbers-grid" id="adminNumbersGrid"></div>
+          </div>
+        </section>
+
+        <!-- PAYMENTS PANEL -->
+        <section id="panel-payments" class="panel">
+          <h2 class="panel-title">Registro de Pagos</h2>
+          <div class="card" style="margin-bottom:1.5rem">
+            <h3 class="card-title">Confirmar Pago</h3>
+            <div class="assign-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Número</label>
+                  <input type="number" id="payNum" placeholder="ej. 07" min="0" max="99" />
+                </div>
+                <div class="form-group">
+                  <label>Monto pagado (RD$)</label>
+                  <input type="number" id="payAmount" placeholder="ej. 500" />
+                </div>
+                <div class="form-group">
+                  <label>Método de pago</label>
+                  <select id="payMethod">
+                    <option value="transferencia">Transferencia</option>
+                    <option value="efectivo">Efectivo</option>
+                    <option value="tarjeta">Tarjeta</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Notas del pago</label>
+                <input type="text" id="payNotes" placeholder="Referencia, banco, etc." />
+              </div>
+              <div class="btn-row">
+                <button class="btn-primary" id="confirmPayBtn">Confirmar Pago</button>
+                <button class="btn-danger" id="removePayBtn">Quitar Pago</button>
+              </div>
+              <div id="payMsg" class="msg-box" style="display:none"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Lista de Pagos</h3>
+            <div class="table-wrap">
+              <table class="data-table" id="paymentsTable">
+                <thead>
+                  <tr>
+                    <th>Número</th>
+                    <th>Cliente</th>
+                    <th>Teléfono</th>
+                    <th>Monto</th>
+                    <th>Método</th>
+                    <th>Notas</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody id="paymentsBody">
+                  <tr><td colspan="7" class="empty-row">Sin pagos registrados</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- WINNER PANEL -->
+        <section id="panel-winner" class="panel">
+          <h2 class="panel-title">Sorteo & Ganador</h2>
+          <div class="winner-grid">
+            <div class="card">
+              <h3 class="card-title">Registrar Número Ganador</h3>
+              <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem">Ingresa el primer número que salió en la Banca Nacional Dominicana para determinar el ganador.</p>
+              <div class="form-group">
+                <label>Número ganador (00–99)</label>
+                <input type="number" id="winnerNum" placeholder="ej. 47" min="0" max="99" />
+              </div>
+              <div class="form-group">
+                <label>Fecha del sorteo</label>
+                <input type="date" id="winnerDate" />
+              </div>
+              <button class="btn-primary" id="setWinnerBtn" style="width:100%">Registrar Ganador</button>
+              <div id="winnerMsg" class="msg-box" style="display:none"></div>
+            </div>
+
+            <div class="card winner-result-card" id="winnerResultCard" style="display:none">
+              <div class="winner-trophy">🏆</div>
+              <h3>¡Ganador!</h3>
+              <div class="winner-num-display" id="winnerNumDisplay">—</div>
+              <div class="winner-detail" id="winnerDetail">
+                <div class="info-row"><span>Nombre</span><strong id="winnerName">—</strong></div>
+                <div class="info-row"><span>Teléfono</span><strong id="winnerPhone">—</strong></div>
+                <div class="info-row"><span>Pago</span><strong id="winnerPaid">—</strong></div>
+                <div class="info-row"><span>Fecha Sorteo</span><strong id="winnerDateDisplay">—</strong></div>
+              </div>
+              <button class="btn-danger" id="clearWinnerBtn" style="width:100%;margin-top:1.5rem">Limpiar Resultado</button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- NUMBER DETAIL MODAL -->
+  <div class="modal-overlay" id="adminModal">
+    <div class="modal">
+      <button class="modal-close" id="adminModalClose">✕</button>
+      <h3 id="adminModalTitle">Número 00</h3>
+      <div id="adminModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, set, get, update, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    // ⚠️ REEMPLAZA CON TU CONFIGURACIÓN DE FIREBASE (misma que index.html)
+    const firebaseConfig = {
+      apiKey: "TU_API_KEY",
+      authDomain: "TU_PROJECT.firebaseapp.com",
+      databaseURL: "https://TU_PROJECT-default-rtdb.firebaseio.com",
+      projectId: "TU_PROJECT",
+      storageBucket: "TU_PROJECT.appspot.com",
+      messagingSenderId: "TU_SENDER_ID",
+      appId: "TU_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db  = getDatabase(app);
+    const auth = getAuth(app);
+
+    let allNumbers = {};
+
+    // ---- AUTH ----
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("adminApp").style.display = "block";
+        document.getElementById("topbarUser").textContent = user.email;
+        initApp();
+      } else {
+        document.getElementById("loginScreen").style.display = "flex";
+        document.getElementById("adminApp").style.display = "none";
+      }
+    });
+
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      const email = document.getElementById("loginEmail").value.trim();
+      const pass  = document.getElementById("loginPassword").value;
+      const errEl = document.getElementById("loginError");
+      errEl.style.display = "none";
+      try {
+        await signInWithEmailAndPassword(auth, email, pass);
+      } catch (e) {
+        errEl.textContent = "Correo o contraseña incorrectos.";
+        errEl.style.display = "block";
+      }
+    });
+
+    // allow Enter key on login
+    ["loginEmail","loginPassword"].forEach(id => {
+      document.getElementById(id).addEventListener("keydown", e => {
+        if (e.key === "Enter") document.getElementById("loginBtn").click();
+      });
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", () => signOut(auth));
+
+    // ---- NAVIGATION ----
+    document.querySelectorAll(".nav-item").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".nav-item").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+        btn.classList.add("active");
+        const panelId = "panel-" + btn.dataset.panel;
+        document.getElementById(panelId).classList.add("active");
+      });
+    });
+
+    // ---- INIT APP ----
+    function initApp() {
+      // Listen to DB
+      onValue(ref(db, "numeros"), snap => {
+        allNumbers = snap.val() || {};
+        refreshDashboard();
+        renderAdminGrid();
+        renderPaymentsTable();
+      });
+
+      onValue(ref(db, "config"), snap => {
+        const config = snap.val() || {};
+        if (config.precio) {
+          document.getElementById("info-price").textContent = "RD$" + config.precio;
+          document.getElementById("priceInput").value = config.precio;
+        }
+      });
+
+      onValue(ref(db, "ganador"), snap => {
+        const g = snap.val();
+        if (g && g.numero !== undefined) {
+          showWinnerResult(g);
+        } else {
+          document.getElementById("winnerResultCard").style.display = "none";
+        }
+      });
+    }
+
+    // ---- DASHBOARD ----
+    function refreshDashboard() {
+      let taken = 0, paid = 0, pending = 0;
+      const recent = [];
+
+      Object.entries(allNumbers).forEach(([num, info]) => {
+        if (info.ocupado) {
+          taken++;
+          if (info.pagado) paid++;
+          else pending++;
+          recent.push({ num, name: info.nombre || "—", ts: info.timestamp || 0 });
+        }
+      });
+
+      document.getElementById("stat-total").textContent   = taken;
+      document.getElementById("stat-paid").textContent    = paid;
+      document.getElementById("stat-pending").textContent = pending;
+      document.getElementById("stat-avail").textContent   = 100 - taken;
+
+      // Recent activity (last 5)
+      recent.sort((a,b) => b.ts - a.ts);
+      const list = document.getElementById("recentList");
+      if (recent.length === 0) {
+        list.innerHTML = '<li class="recent-empty">Sin actividad aún</li>';
+      } else {
+        list.innerHTML = recent.slice(0,5).map(r =>
+          `<li class="recent-item">
+            <span class="recent-num">${r.num}</span>
+            <span class="recent-name">${r.name}</span>
+          </li>`
+        ).join("");
+      }
+    }
+
+    // ---- NUMBERS GRID (admin) ----
+    function renderAdminGrid() {
+      const grid = document.getElementById("adminNumbersGrid");
+      grid.innerHTML = "";
+      for (let i = 0; i <= 99; i++) {
+        const num  = String(i).padStart(2, "0");
+        const info = allNumbers[num] || {};
+        let cls = "admin-num available";
+        if (info.ocupado && info.pagado)  cls = "admin-num paid";
+        else if (info.ocupado)            cls = "admin-num taken";
+
+        const btn = document.createElement("button");
+        btn.className = cls;
+        btn.textContent = num;
+        btn.addEventListener("click", () => openNumberModal(num, info));
+        grid.appendChild(btn);
+      }
+    }
+
+    // ---- NUMBER DETAIL MODAL ----
+    function openNumberModal(num, info) {
+      const modal = document.getElementById("adminModal");
+      document.getElementById("adminModalTitle").textContent = `Número ${num}`;
+      document.getElementById("adminModalBody").innerHTML = info.ocupado ? `
+        <div class="info-row"><span>Estado</span><strong style="color:${info.pagado?'#4ade80':'#facc15'};">${info.pagado ? '✅ Pagado' : '⏳ Sin pago'}</strong></div>
+        <div class="info-row"><span>Cliente</span><strong>${info.nombre || '—'}</strong></div>
+        <div class="info-row"><span>Teléfono</span><strong>${info.telefono || '—'}</strong></div>
+        ${info.pagado ? `
+        <div class="info-row"><span>Monto</span><strong>RD$${info.monto || '—'}</strong></div>
+        <div class="info-row"><span>Método</span><strong>${info.metodo || '—'}</strong></div>
+        <div class="info-row"><span>Notas pago</span><strong>${info.notasPago || '—'}</strong></div>
+        ` : ''}
+      ` : `<p style="color:var(--text-muted);text-align:center;padding:1rem 0">Este número está disponible.</p>`;
+      modal.classList.add("active");
+    }
+
+    document.getElementById("adminModalClose").addEventListener("click", () => {
+      document.getElementById("adminModal").classList.remove("active");
+    });
+    document.getElementById("adminModal").addEventListener("click", e => {
+      if (e.target === document.getElementById("adminModal"))
+        document.getElementById("adminModal").classList.remove("active");
+    });
+
+    // ---- ASSIGN NUMBER ----
+    document.getElementById("assignBtn").addEventListener("click", async () => {
+      const num   = document.getElementById("assignNum").value.trim().padStart(2,"0");
+      const name  = document.getElementById("assignName").value.trim();
+      const phone = document.getElementById("assignPhone").value.trim();
+      const msg   = document.getElementById("assignMsg");
+
+      if (!num || isNaN(parseInt(num)) || parseInt(num) < 0 || parseInt(num) > 99) {
+        return showMsg(msg, "Ingresa un número válido (00–99).", "error");
+      }
+      if (!name) return showMsg(msg, "Ingresa el nombre del cliente.", "error");
+
+      const existing = allNumbers[num];
+      if (existing && existing.ocupado) {
+        return showMsg(msg, `El número ${num} ya está ocupado por ${existing.nombre}.`, "error");
+      }
+
+      await set(ref(db, `numeros/${num}`), {
+        ocupado: true,
+        nombre: name,
+        telefono: phone,
+        pagado: false,
+        timestamp: Date.now()
+      });
+      showMsg(msg, `✅ Número ${num} asignado a ${name}.`, "success");
+      document.getElementById("assignNum").value  = "";
+      document.getElementById("assignName").value = "";
+      document.getElementById("assignPhone").value = "";
+    });
+
+    document.getElementById("releaseBtn").addEventListener("click", async () => {
+      const num = document.getElementById("assignNum").value.trim().padStart(2,"0");
+      const msg = document.getElementById("assignMsg");
+      if (!num || isNaN(parseInt(num)) || parseInt(num) < 0 || parseInt(num) > 99) {
+        return showMsg(msg, "Ingresa un número válido.", "error");
+      }
+      await set(ref(db, `numeros/${num}`), null);
+      showMsg(msg, `🗑️ Número ${num} liberado.`, "success");
+    });
+
+    // ---- PAYMENTS ----
+    document.getElementById("confirmPayBtn").addEventListener("click", async () => {
+      const num    = document.getElementById("payNum").value.trim().padStart(2,"0");
+      const amount = document.getElementById("payAmount").value.trim();
+      const method = document.getElementById("payMethod").value;
+      const notes  = document.getElementById("payNotes").value.trim();
+      const msg    = document.getElementById("payMsg");
+
+      if (!num || isNaN(parseInt(num))) return showMsg(msg, "Número inválido.", "error");
+      const info = allNumbers[num];
+      if (!info || !info.ocupado) return showMsg(msg, `El número ${num} no está asignado.`, "error");
+
+      await update(ref(db, `numeros/${num}`), {
+        pagado: true,
+        monto: amount,
+        metodo: method,
+        notasPago: notes,
+        fechaPago: new Date().toLocaleDateString("es-DO")
+      });
+      showMsg(msg, `✅ Pago confirmado para el número ${num}.`, "success");
+    });
+
+    document.getElementById("removePayBtn").addEventListener("click", async () => {
+      const num = document.getElementById("payNum").value.trim().padStart(2,"0");
+      const msg = document.getElementById("payMsg");
+      if (!num || isNaN(parseInt(num))) return showMsg(msg, "Número inválido.", "error");
+      await update(ref(db, `numeros/${num}`), {
+        pagado: false, monto: null, metodo: null, notasPago: null, fechaPago: null
+      });
+      showMsg(msg, `Pago removido del número ${num}.`, "success");
+    });
+
+    function renderPaymentsTable() {
+      const body = document.getElementById("paymentsBody");
+      const rows = Object.entries(allNumbers).filter(([,v]) => v.ocupado);
+      if (rows.length === 0) {
+        body.innerHTML = '<tr><td colspan="7" class="empty-row">Sin números asignados</td></tr>';
+        return;
+      }
+      body.innerHTML = rows.map(([num, info]) => `
+        <tr>
+          <td><strong>${num}</strong></td>
+          <td>${info.nombre || "—"}</td>
+          <td>${info.telefono || "—"}</td>
+          <td>${info.monto ? "RD$"+info.monto : "—"}</td>
+          <td>${info.metodo || "—"}</td>
+          <td>${info.notasPago || "—"}</td>
+          <td><span class="badge ${info.pagado ? 'badge-green' : 'badge-yellow'}">${info.pagado ? "Pagado" : "Pendiente"}</span></td>
+        </tr>
+      `).join("");
+    }
+
+    // ---- PRICE CONFIG ----
+    document.getElementById("savePriceBtn").addEventListener("click", async () => {
+      const price = document.getElementById("priceInput").value;
+      if (!price) return;
+      await set(ref(db, "config/precio"), price);
+      document.getElementById("info-price").textContent = "RD$" + price;
+      alert("✅ Precio guardado");
+    });
+
+    // ---- WINNER ----
+    document.getElementById("setWinnerBtn").addEventListener("click", async () => {
+      const num  = document.getElementById("winnerNum").value.trim().padStart(2,"0");
+      const date = document.getElementById("winnerDate").value;
+      const msg  = document.getElementById("winnerMsg");
+      if (!num || isNaN(parseInt(num)) || parseInt(num) < 0 || parseInt(num) > 99) {
+        return showMsg(msg, "Número inválido.", "error");
+      }
+      const info = allNumbers[num] || {};
+      await set(ref(db, "ganador"), {
+        numero: num,
+        nombre: info.nombre || "Número sin asignar",
+        telefono: info.telefono || "—",
+        pagado: info.pagado ? "Sí" : "No",
+        fechaSorteo: date || new Date().toLocaleDateString("es-DO")
+      });
+      showMsg(msg, `🏆 Ganador registrado: número ${num}.`, "success");
+    });
+
+    document.getElementById("clearWinnerBtn").addEventListener("click", async () => {
+      await set(ref(db, "ganador"), null);
+    });
+
+    function showWinnerResult(g) {
+      document.getElementById("winnerResultCard").style.display = "block";
+      document.getElementById("winnerNumDisplay").textContent   = g.numero;
+      document.getElementById("winnerName").textContent         = g.nombre;
+      document.getElementById("winnerPhone").textContent        = g.telefono;
+      document.getElementById("winnerPaid").textContent         = g.pagado;
+      document.getElementById("winnerDateDisplay").textContent  = g.fechaSorteo;
+    }
+
+    // ---- UTILS ----
+    function showMsg(el, txt, type) {
+      el.textContent = txt;
+      el.className = `msg-box ${type}`;
+      el.style.display = "block";
+      setTimeout(() => el.style.display = "none", 4000);
+    }
+  </script>
+
+</body>
+</html>
