@@ -303,28 +303,28 @@ window.liberar = async (id, num) => {
 }
 
 // ============================================================
-//  FINANZAS
+//  FINANZAS (Guardado en Memoria Local para evitar errores de permisos)
 // ============================================================
 async function cargarConfigFinanzas() {
   try {
-    const snap = await getDoc(doc(db, "config", "finanzas"));
-    if (snap.exists()) {
-      inversionBase = snap.data().inversion || 0;
+    const val = localStorage.getItem("rifa_inversion");
+    if (val) {
+      inversionBase = Number(val);
       document.getElementById("inpInversion").value = inversionBase;
     }
   } catch (e) { console.error("Error cargando finanzas"); }
 }
 
-document.getElementById("btnGuardarInversion").addEventListener("click", async () => {
+document.getElementById("btnGuardarInversion").addEventListener("click", () => {
   const val = Number(document.getElementById("inpInversion").value);
   if (isNaN(val) || val < 0) return;
   try {
-    await setDoc(doc(db, "config", "finanzas"), { inversion: val }, { merge: true });
+    localStorage.setItem("rifa_inversion", val);
     inversionBase = val;
     document.getElementById("msgInversion").classList.remove("hidden");
     setTimeout(() => document.getElementById("msgInversion").classList.add("hidden"), 3000);
     actualizarFinanzas();
-  } catch (e) { showToast("Error al guardar inversión", "error"); }
+  } catch (e) { showToast("Error al guardar inversión en navegador", "error"); }
 });
 
 function actualizarFinanzas() {
