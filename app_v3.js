@@ -249,6 +249,36 @@ function escucharNumeros() {
 }
 
 // ============================================================
+//  HEADER scroll effect
+// ============================================================
+const header = document.getElementById("siteHeader");
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 50) {
+    header.classList.add("scrolled");
+  } else {
+    header.classList.remove("scrolled");
+  }
+});
+
+// ============================================================
+//  Intersection Observer for section animations
+// ============================================================
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  },
+  { threshold: 0.1 }
+);
+
+document.querySelectorAll(".section").forEach((sec) => {
+  observer.observe(sec);
+});
+
+// ============================================================
 //  INIT
 // ============================================================
 escucharNumeros();
