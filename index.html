@@ -1,260 +1,139 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rifa • 4 Perfumes Initio | Día de los Padres</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
+<html lang="es" class="bg-background">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gran Sorteo de Perfumes</title>
+    <meta
+      name="description"
+      content="Participa en el gran sorteo de perfumes. Elige tu número de la suerte."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <span class="dot"></span>
+          <span id="brandName">Sorteo de Perfumes</span>
+        </div>
+        <nav class="nav-links">
+          <a href="#premios">Premios</a>
+          <a href="#numeros">Números</a>
+          <a href="admin.html" class="btn-admin">Admin</a>
+        </nav>
+      </div>
+    </header>
 
-  <!-- HERO -->
-  <header class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <span class="eyebrow">✦ Día de los Padres · Rifa Exclusiva ✦</span>
-      <h1 class="hero-title">4 Perfumes<br /><em>Initio Privés</em></h1>
-      <p class="hero-sub">100 números · El ganador se decide con la Banca Nacional Dominicana</p>
-      <a href="#numeros" class="cta-btn">Ver Números Disponibles</a>
-    </div>
-    <div class="hero-badge">
-      <span class="badge-number" id="badge-avail">—</span>
-      <span class="badge-label">disponibles</span>
-    </div>
-  </header>
-
-  <!-- PERFUMES SECTION -->
-  <section class="perfumes-section">
-    <div class="container">
-      <h2 class="section-title">Los Premios</h2>
-      <p class="section-sub">Cuatro íconos de la perfumería de lujo. Tamaño original.</p>
-      <div class="perfumes-grid">
-        <div class="perfume-card" style="--accent:#6B4FA0">
-          <div class="perfume-img-wrap" style="background:linear-gradient(145deg,#2d1a4d,#6B4FA0)">
-            <img src="https://us.initioparfums.com/cdn/shop/files/INITIO_SIDE_EFFECT_EDP_50ML_PACKSHOT_2022.jpg?v=1728490249&width=600" alt="Side Effect" onerror="this.src='https://placehold.co/300x400/2d1a4d/d4b8ff?text=Side+Effect'" />
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <h1 id="heroTitle">
+          Gran Sorteo de <span class="accent">Perfumes</span>
+        </h1>
+        <p id="heroDesc">
+          Participa eligiendo tu número. El ganador se decide con el primer
+          número de la Lotería Nacional Dominicana.
+        </p>
+        <div class="hero-meta">
+          <div class="meta-pill">
+            Premios: <strong>4 Perfumes</strong>
           </div>
-          <div class="perfume-info">
-            <h3>Side Effect</h3>
-            <p>Ambery · Spicy · EDP</p>
-            <span class="perfume-tag">Ron · Tabaco · Canela</span>
+          <div class="meta-pill">
+            Precio por número: <strong id="precioPill">RD$ 500</strong>
           </div>
-        </div>
-        <div class="perfume-card" style="--accent:#8B1a2a">
-          <div class="perfume-img-wrap" style="background:linear-gradient(145deg,#3d0a14,#8B1a2a)">
-            <img src="https://us.initioparfums.com/cdn/shop/files/INITIO_ATOMICROSE_EDP_50ML_PACKSHOT_2022.jpg?v=1728490249&width=600" alt="Atomic Rose" onerror="this.src='https://placehold.co/300x400/3d0a14/ffb8c6?text=Atomic+Rose'" />
-          </div>
-          <div class="perfume-info">
-            <h3>Atomic Rose</h3>
-            <p>Floral · Rose Violet · EDP</p>
-            <span class="perfume-tag">Rosa · Vainilla · Bergamota</span>
-          </div>
-        </div>
-        <div class="perfume-card" style="--accent:#8a7d6e">
-          <div class="perfume-img-wrap" style="background:linear-gradient(145deg,#3a3530,#8a7d6e)">
-            <img src="https://us.initioparfums.com/cdn/shop/files/INITIO_MUSK_THERAPY_EXTRAIT_50ML_PACKSHOT_2022.jpg?v=1728490249&width=600" alt="Musk Therapy" onerror="this.src='https://placehold.co/300x400/3a3530/f5efe6?text=Musk+Therapy'" />
-          </div>
-          <div class="perfume-info">
-            <h3>Musk Therapy</h3>
-            <p>Floral Ambery · Fruity · Extrait</p>
-            <span class="perfume-tag">Almizcle · Frutas · Ámbar</span>
-          </div>
-        </div>
-        <div class="perfume-card" style="--accent:#2a2a2a">
-          <div class="perfume-img-wrap" style="background:linear-gradient(145deg,#0a0a0a,#2a2a2a)">
-            <img src="https://us.initioparfums.com/cdn/shop/files/INITIO_OUD_FOR_GREATNESS_EDP_90ML_PACKSHOT_2022.jpg?v=1728490249&width=600" alt="Oud for Greatness" onerror="this.src='https://placehold.co/300x400/0a0a0a/c8b89a?text=Oud+for+Greatness'" />
-          </div>
-          <div class="perfume-info">
-            <h3>Oud for Greatness</h3>
-            <p>Woody · Oriental · EDP</p>
-            <span class="perfume-tag">Oud · Azafrán · Lavanda</span>
+          <div class="meta-pill">
+            Disponibles: <strong id="disponiblesPill">--</strong>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- HOW IT WORKS -->
-  <section class="how-section">
-    <div class="container">
-      <div class="how-grid">
-        <div class="how-step">
-          <span class="how-num">01</span>
-          <h4>Escoge tu número</h4>
-          <p>Selecciona cualquier número del 00 al 99 que esté disponible.</p>
+    <!-- PREMIOS -->
+    <section id="premios" class="container">
+      <h2 class="section-title">Los 4 Perfumes en Juego</h2>
+      <p class="section-sub">El ganador se lleva los cuatro perfumes.</p>
+      <div class="premios-grid">
+        <article class="premio-card">
+          <img src="assets/perfumes/perfume-1.png" alt="Perfume árabe morado" />
+          <div class="info">
+            <h3>Edición Morada</h3>
+            <span>Fragancia árabe premium</span>
+          </div>
+        </article>
+        <article class="premio-card">
+          <img src="assets/perfumes/perfume-2.png" alt="Perfume árabe rojo" />
+          <div class="info">
+            <h3>Edición Roja</h3>
+            <span>Fragancia árabe premium</span>
+          </div>
+        </article>
+        <article class="premio-card">
+          <img src="assets/perfumes/perfume-3.png" alt="Perfume árabe blanco" />
+          <div class="info">
+            <h3>Edición Blanca</h3>
+            <span>Fragancia árabe premium</span>
+          </div>
+        </article>
+        <article class="premio-card">
+          <img src="assets/perfumes/perfume-4.png" alt="Perfume árabe negro" />
+          <div class="info">
+            <h3>Edición Negra</h3>
+            <span>Fragancia árabe premium</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- NÚMEROS -->
+    <section id="numeros" class="container">
+      <h2 class="section-title">Elige tu Número</h2>
+      <p class="section-sub">Toca un número disponible para reservarlo.</p>
+
+      <div class="leyenda">
+        <span><i class="swatch libre"></i> Disponible</span>
+        <span><i class="swatch ocupado"></i> Ocupado</span>
+      </div>
+
+      <div id="numerosGrid" class="numeros-grid">
+        <div class="loading">Cargando números...</div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <p>
+        &copy; <span id="year"></span> Sorteo de Perfumes. El sorteo se realiza
+        con el primer número de la Lotería Nacional Dominicana.
+      </p>
+    </footer>
+
+    <!-- MODAL DE RESERVA -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal">
+        <h3>Reservar número <span class="num-badge" id="modalNum">#0</span></h3>
+        <p>Completa tus datos para apartar este número.</p>
+        <div class="field">
+          <label for="inpNombre">Nombre completo</label>
+          <input type="text" id="inpNombre" placeholder="Ej: Juan Pérez" />
         </div>
-        <div class="how-step">
-          <span class="how-num">02</span>
-          <h4>Contáctanos</h4>
-          <p>Escríbenos con el número que deseas para coordinar el pago.</p>
+        <div class="field">
+          <label for="inpTelefono">Teléfono</label>
+          <input type="tel" id="inpTelefono" placeholder="Ej: 809-000-0000" />
         </div>
-        <div class="how-step">
-          <span class="how-num">03</span>
-          <h4>Sorteo</h4>
-          <p>El primer número de la Banca Nacional Dominicana decide al ganador.</p>
-        </div>
-        <div class="how-step">
-          <span class="how-num">04</span>
-          <h4>¡Gana!</h4>
-          <p>El ganador recibe los 4 perfumes Initio originales tamaño completo.</p>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" id="btnCancelar">Cancelar</button>
+          <button class="btn btn-primary" id="btnConfirmar">
+            Reservar número
+          </button>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- NUMBERS SECTION -->
-  <section class="numbers-section" id="numeros">
-    <div class="container">
-      <h2 class="section-title">Selecciona tu Número</h2>
-      <p class="section-sub">Toca un número disponible para reservarlo</p>
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
 
-      <div class="legend">
-        <span class="legend-item"><span class="dot dot-available"></span> Disponible</span>
-        <span class="legend-item"><span class="dot dot-taken"></span> Ocupado</span>
-      </div>
-
-      <div class="numbers-grid" id="numbersGrid">
-        <!-- filled by JS -->
-      </div>
-
-      <div class="counter-bar">
-        <div class="counter-item">
-          <span id="countAvail" class="counter-val">—</span>
-          <span class="counter-label">Disponibles</span>
-        </div>
-        <div class="counter-divider"></div>
-        <div class="counter-item">
-          <span id="countTaken" class="counter-val">—</span>
-          <span class="counter-label">Ocupados</span>
-        </div>
-        <div class="counter-divider"></div>
-        <div class="counter-item">
-          <span class="counter-val">100</span>
-          <span class="counter-label">Total</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT CTA -->
-  <section class="contact-section">
-    <div class="container contact-inner">
-      <div>
-        <h2>¿Listo para participar?</h2>
-        <p>Escríbenos con el número que escogiste. ¡Plazas limitadas!</p>
-      </div>
-      <a href="https://wa.me/18091234567?text=Hola%2C%20quiero%20reservar%20el%20n%C3%BAmero%20de%20la%20rifa" target="_blank" class="whatsapp-btn">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        Reservar por WhatsApp
-      </a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <p>Rifa oficial · Día de los Padres · Sorteo con Banca Nacional Dominicana</p>
-  </footer>
-
-  <!-- MODAL -->
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-      <button class="modal-close" id="modalClose">✕</button>
-      <div class="modal-icon">🎉</div>
-      <h3 id="modalTitle">¡Número disponible!</h3>
-      <p id="modalBody">Para reservar este número, contáctanos por WhatsApp.</p>
-      <a href="#" id="modalWhatsapp" target="_blank" class="cta-btn" style="display:inline-block;margin-top:1rem">
-        Reservar por WhatsApp
-      </a>
-    </div>
-  </div>
-
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
-    // ⚠️ REEMPLAZA CON TU CONFIGURACIÓN DE FIREBASE
-    const firebaseConfig = {
-      apiKey: "TU_API_KEY",
-      authDomain: "TU_PROJECT.firebaseapp.com",
-      databaseURL: "https://TU_PROJECT-default-rtdb.firebaseio.com",
-      projectId: "TU_PROJECT",
-      storageBucket: "TU_PROJECT.appspot.com",
-      messagingSenderId: "TU_SENDER_ID",
-      appId: "TU_APP_ID"
-    };
-
-    // Número de WhatsApp del admin (editar aquí)
-    const WHATSAPP_NUMBER = "18091234567";
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    const grid = document.getElementById("numbersGrid");
-    const countAvail = document.getElementById("countAvail");
-    const countTaken = document.getElementById("countTaken");
-    const badgeAvail = document.getElementById("badge-avail");
-
-    // Listen to numbers in real-time
-    const numbersRef = ref(db, "numeros");
-    onValue(numbersRef, (snapshot) => {
-      const data = snapshot.val() || {};
-      renderGrid(data);
-    });
-
-    function renderGrid(data) {
-      grid.innerHTML = "";
-      let taken = 0;
-
-      for (let i = 0; i <= 99; i++) {
-        const num = String(i).padStart(2, "0");
-        const info = data[num] || {};
-        const isOccupied = info.ocupado === true;
-
-        if (isOccupied) taken++;
-
-        const btn = document.createElement("button");
-        btn.className = `num-btn ${isOccupied ? "taken" : "available"}`;
-        btn.textContent = num;
-        btn.setAttribute("aria-label", `Número ${num} ${isOccupied ? "ocupado" : "disponible"}`);
-        btn.disabled = isOccupied;
-
-        if (!isOccupied) {
-          btn.addEventListener("click", () => showModal(num));
-        }
-
-        grid.appendChild(btn);
-      }
-
-      const avail = 100 - taken;
-      countAvail.textContent = avail;
-      countTaken.textContent = taken;
-      badgeAvail.textContent = avail;
-    }
-
-    function showModal(num) {
-      const overlay = document.getElementById("modalOverlay");
-      const title = document.getElementById("modalTitle");
-      const body = document.getElementById("modalBody");
-      const wa = document.getElementById("modalWhatsapp");
-
-      title.textContent = `Número ${num} disponible`;
-      body.textContent = `¡Genial! Para reservar el número ${num}, escríbenos por WhatsApp y te damos los detalles del pago.`;
-      wa.href = `https://wa.me/${WHATSAPP_NUMBER}?text=Hola%2C%20quiero%20reservar%20el%20n%C3%BAmero%20*${num}*%20de%20la%20rifa%20de%20perfumes%20Initio%20%F0%9F%8E%81`;
-
-      overlay.classList.add("active");
-    }
-
-    document.getElementById("modalClose").addEventListener("click", closeModal);
-    document.getElementById("modalOverlay").addEventListener("click", (e) => {
-      if (e.target === document.getElementById("modalOverlay")) closeModal();
-    });
-    function closeModal() {
-      document.getElementById("modalOverlay").classList.remove("active");
-    }
-  </script>
-
-</body>
+    <script type="module" src="app.js"></script>
+  </body>
 </html>
