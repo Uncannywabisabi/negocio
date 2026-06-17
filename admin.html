@@ -1,97 +1,313 @@
 <!DOCTYPE html>
-<html lang="es" class="bg-background">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Panel Admin - Sorteo de Perfumes</title>
-    <meta name="description" content="Panel de administración del sorteo." />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <!-- HEADER -->
-    <header class="site-header">
-      <div class="header-inner">
-        <div class="brand">
-          <span class="dot"></span>
-          <span>Panel de Administración</span>
-        </div>
-        <nav class="nav-links">
-          <a href="index.html">Ver página pública</a>
-          <a href="#" id="btnLogout" class="btn-admin hidden">Salir</a>
-        </nav>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Sorteo de Perfumes</title>
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="loginView" class="login-screen">
+    <div class="login-card">
+      <div class="login-logo"><i class="fas fa-crown"></i></div>
+      <h1>Panel de Administración</h1>
+      <p>Control total del sorteo y finanzas</p>
+      
+      <div id="loginError" class="login-error hidden">Contraseña incorrecta</div>
+      
+      <div class="form-group" style="text-align: left;">
+        <label for="inpClave">Contraseña</label>
+        <input type="password" id="inpClave" placeholder="••••••••" />
+      </div>
+      <button class="btn-primary" id="btnEntrar" style="width: 100%; margin-top: 10px;">
+        <i class="fas fa-sign-in-alt"></i> Acceder al Panel
+      </button>
+      <a href="index.html" class="btn-ghost" style="width: 100%; margin-top: 15px; display: block; text-align: center;">
+        <i class="fas fa-arrow-left"></i> Volver a la página web
+      </a>
+    </div>
+  </div>
+
+  <!-- ADMIN LAYOUT -->
+  <div id="panelView" class="hidden">
+    
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <i class="fas fa-crown topbar-logo"></i>
+        <span class="topbar-title">Administración VIP</span>
+      </div>
+      <div class="topbar-right">
+        <a href="index.html" target="_blank" class="btn-ghost" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">
+          <i class="fas fa-external-link-alt"></i> Ver Web
+        </a>
+        <button id="btnLogout" class="btn-ghost" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; color: var(--red); border-color: rgba(248,113,113,0.3);">
+          <i class="fas fa-sign-out-alt"></i> Salir
+        </button>
       </div>
     </header>
 
-    <!-- LOGIN -->
-    <section id="loginView" class="container">
-      <div class="admin-login">
-        <h2>Acceso Admin</h2>
-        <p>Ingresa la clave para administrar el sorteo.</p>
-        <div class="field">
-          <label for="inpClave">Contraseña</label>
-          <input type="password" id="inpClave" placeholder="••••••••" />
-        </div>
-        <button class="btn btn-primary btn-block" id="btnEntrar">
-          Entrar
+    <div class="admin-layout">
+      
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <button class="nav-item active" data-target="tab-dashboard">
+          <i class="fas fa-chart-pie"></i> Dashboard
         </button>
+        <button class="nav-item" data-target="tab-aprobaciones">
+          <i class="fas fa-clipboard-check"></i> Aprobaciones <span id="badgeAprobaciones" class="badge badge-yellow" style="margin-left: auto; display: none;">0</span>
+        </button>
+        <button class="nav-item" data-target="tab-numeros">
+          <i class="fas fa-th"></i> Ver Números
+        </button>
+        <button class="nav-item" data-target="tab-finanzas">
+          <i class="fas fa-wallet"></i> Finanzas
+        </button>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="admin-main">
+        
+        <!-- ==================== DASHBOARD ==================== -->
+        <section id="tab-dashboard" class="panel active">
+          <h2 class="panel-title">Resumen General</h2>
+          
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon" style="color: var(--gold);"><i class="fas fa-ticket-alt"></i></div>
+              <div>
+                <div class="stat-val" id="dashTotales">0/100</div>
+                <div class="stat-label">Números Ocupados</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="color: var(--yellow);"><i class="fas fa-clock"></i></div>
+              <div>
+                <div class="stat-val" id="dashPendientes" style="color: var(--yellow);">0</div>
+                <div class="stat-label">Por Aprobar</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon" style="color: var(--green);"><i class="fas fa-check-circle"></i></div>
+              <div>
+                <div class="stat-val" id="dashPagados" style="color: var(--green);">0</div>
+                <div class="stat-label">Números Pagados</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-grid-bottom">
+            <div class="card">
+              <div class="card-title"><i class="fas fa-bolt"></i> Acciones Rápidas</div>
+              <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                Asigna un número manualmente a un cliente presencial o alguien que te pagó en efectivo.
+              </p>
+              <button class="btn-primary" id="btnShowAddManual">
+                <i class="fas fa-plus"></i> Asignar Número Manual
+              </button>
+            </div>
+            
+            <div class="card">
+              <div class="card-title"><i class="fas fa-history"></i> Últimos Movimientos</div>
+              <ul class="recent-list" id="listaRecientes">
+                <li class="recent-empty">Cargando...</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== APROBACIONES ==================== -->
+        <section id="tab-aprobaciones" class="panel">
+          <h2 class="panel-title">Solicitudes Pendientes</h2>
+          
+          <div class="card">
+            <div class="card-title"><i class="fas fa-list-ul"></i> Requieren tu revisión</div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Número</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Fecha</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+                <tbody id="tablaAprobaciones">
+                  <tr><td colspan="5" class="empty-row">Cargando...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== NÚMEROS ==================== -->
+        <section id="tab-numeros" class="panel">
+          <h2 class="panel-title">Control de Números</h2>
+          
+          <div class="card">
+            <div class="admin-legend">
+              <span><div class="dot dot-available"></div> Disponible</span>
+              <span><div class="dot dot-taken"></div> Pendiente / Sin Pagar</span>
+              <span><div class="dot dot-paid"></div> Pagado</span>
+            </div>
+            <div class="admin-numbers-grid" id="adminGrid">
+              <!-- JS generates -->
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title"><i class="fas fa-search"></i> Buscar y Gestionar</div>
+            <div class="form-group" style="max-width: 400px; margin-bottom: 1.5rem;">
+              <input type="text" id="inpBuscar" placeholder="Buscar por nombre, tel o #..." />
+            </div>
+
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Cliente</th>
+                    <th>Teléfono</th>
+                    <th>Estado</th>
+                    <th>Pago</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="tablaTodos">
+                  <tr><td colspan="6" class="empty-row">Cargando...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== FINANZAS ==================== -->
+        <section id="tab-finanzas" class="panel">
+          <h2 class="panel-title">Control Financiero</h2>
+          
+          <div class="card" style="margin-bottom: 1.5rem;">
+            <div class="card-title"><i class="fas fa-cog"></i> Configurar Inversión</div>
+            <div class="form-row" style="align-items: flex-end;">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label>Inversión en Perfumes (RD$)</label>
+                <input type="number" id="inpInversion" placeholder="Ej. 5000" />
+              </div>
+              <button class="btn-primary" id="btnGuardarInversion">Guardar Inversión</button>
+            </div>
+            <div id="msgInversion" class="msg-box success hidden" style="margin-top: 1rem;">Guardado correctamente</div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card" style="border-color: rgba(255,255,255,0.1);">
+              <div class="stat-icon" style="color: var(--text-muted);"><i class="fas fa-box-open"></i></div>
+              <div>
+                <div class="stat-val" id="finInversion" style="color: var(--text); font-size: 1.8rem;">RD$ 0</div>
+                <div class="stat-label">Inversión Inicial</div>
+              </div>
+            </div>
+            <div class="stat-card" style="border-color: rgba(74,222,128,0.3);">
+              <div class="stat-icon" style="color: var(--green);"><i class="fas fa-money-bill-wave"></i></div>
+              <div>
+                <div class="stat-val" id="finRecaudado" style="color: var(--green); font-size: 1.8rem;">RD$ 0</div>
+                <div class="stat-label">Recaudado (Pagados)</div>
+              </div>
+            </div>
+            <div class="stat-card" style="border-color: rgba(250,204,21,0.3);">
+              <div class="stat-icon" style="color: var(--yellow);"><i class="fas fa-hand-holding-usd"></i></div>
+              <div>
+                <div class="stat-val" id="finPendiente" style="color: var(--yellow); font-size: 1.8rem;">RD$ 0</div>
+                <div class="stat-label">Por Cobrar (Aprobados)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title"><i class="fas fa-chart-line"></i> Análisis de Ganancias</div>
+            <div class="info-block">
+              <div class="info-row">
+                <span>Total esperado (Si se venden los 100):</span>
+                <strong id="finEsperado">RD$ 0</strong>
+              </div>
+              <div class="info-row">
+                <span>Ganancia Neta Actual (Recaudado - Inversión):</span>
+                <strong id="finGananciaActual">RD$ 0</strong>
+              </div>
+              <div class="info-row" style="background: rgba(201,168,76,0.05);">
+                <span style="color: var(--gold-light);">Ganancia Neta Proyectada (Esperado - Inversión):</span>
+                <strong style="color: var(--gold);" id="finGananciaProyectada">RD$ 0</strong>
+              </div>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+              * La ganancia neta actual será negativa hasta que recuperes lo invertido.
+            </p>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- MODALS -->
+
+  <!-- Modal: Agregar Manual -->
+  <div class="modal-overlay" id="modalAdd">
+    <div class="modal">
+      <button class="modal-close"><i class="fas fa-times"></i></button>
+      <h3>Asignar Número</h3>
+      <div class="form-group">
+        <label>Número Disponible</label>
+        <select id="selNumAdd">
+          <!-- Populated by JS -->
+        </select>
       </div>
-    </section>
-
-    <!-- PANEL -->
-    <section id="panelView" class="container hidden">
-      <!-- ESTADÍSTICAS -->
-      <div class="admin-stats">
-        <div class="stat-card">
-          <div class="value" id="stOcupados">0</div>
-          <div class="label">Números vendidos</div>
-        </div>
-        <div class="stat-card">
-          <div class="value" id="stPagados">0</div>
-          <div class="label">Pagados</div>
-        </div>
-        <div class="stat-card">
-          <div class="value" id="stPendientes">0</div>
-          <div class="label">Pendientes</div>
-        </div>
-        <div class="stat-card">
-          <div class="value" id="stRecaudado">RD$ 0</div>
-          <div class="label">Recaudado</div>
-        </div>
+      <div class="form-group">
+        <label>Nombre del Cliente</label>
+        <input type="text" id="inpAddNombre" />
       </div>
-
-      <!-- TOOLBAR -->
-      <div class="admin-toolbar">
-        <input
-          type="text"
-          id="inpBuscar"
-          placeholder="Buscar por número, nombre o teléfono..."
-        />
+      <div class="form-group">
+        <label>Teléfono</label>
+        <input type="text" id="inpAddTel" />
       </div>
-
-      <!-- TABLA -->
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Nombre</th>
-              <th>Teléfono</th>
-              <th>Estado pago</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="tablaBody">
-            <tr>
-              <td colspan="5" class="loading">Cargando...</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="form-group" style="display: flex; gap: 10px; align-items: center; margin-top: 1rem;">
+        <input type="checkbox" id="chkAddPagado" style="width: auto;" />
+        <label for="chkAddPagado" style="margin: 0; color: var(--text); cursor: pointer;">¿Ya está pagado?</label>
       </div>
-    </section>
+      <div class="btn-row" style="margin-top: 1.5rem;">
+        <button class="btn-primary" id="btnSaveAdd">Guardar Asignación</button>
+      </div>
+    </div>
+  </div>
 
-    <!-- TOAST -->
-    <div class="toast" id="toast"></div>
+  <!-- Modal: Editar Cliente -->
+  <div class="modal-overlay" id="modalEdit">
+    <div class="modal">
+      <button class="modal-close"><i class="fas fa-times"></i></button>
+      <h3>Editar Cliente <span id="editNumTitle" style="color: var(--gold);"></span></h3>
+      <div class="form-group">
+        <label>Nombre del Cliente</label>
+        <input type="text" id="inpEditNombre" />
+      </div>
+      <div class="form-group">
+        <label>Teléfono</label>
+        <input type="text" id="inpEditTel" />
+      </div>
+      <div class="btn-row" style="margin-top: 1.5rem;">
+        <button class="btn-primary" id="btnSaveEdit">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
 
-    <script type="module" src="admin.js"></script>
-  </body>
+  <!-- Toast -->
+  <div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px;" id="toastContainer"></div>
+
+  <script type="module" src="admin.js"></script>
+</body>
 </html>
